@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- based on MathJax-demos-web/input-tex_mml2chtml.html -->
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=device-width">
+  <title>MathJax v3 & Markedjs v0.8</title>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']]
+      },
+    }
+    fetch('./demo.md')
+      .then(function (res) { return res.text(); })
+      .then(function (text) {
+        if (document.getElementById("input").value === '') {
+          document.getElementById("input").value = text;
+        }
+      });
+  </script>
+  <script type="text/javascript" id="MathJax-script" async
+    src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script>
+    function convert() {
+      //
+      //  Get the input 
+      //
+      var input = document.getElementById("input").value.trim();
+      //
+      //  Disable the render button until MathJax is done
+      //
+      var button = document.getElementById("render");
+      button.disabled = true;
+      //
+      //  Clear the old output
+      //
+      output = document.getElementById('output');
+      output.innerHTML = marked(input);
+      //
+      //  Reset the tex labels (and automatic equation numbers, though there aren't any here).
+      //  Reset the typesetting system (font caches, etc.)
+      //  Typeset the page, using a promise to let us know when that is complete
+      //
+      MathJax.texReset();
+      MathJax.typesetClear();
+      MathJax.typesetPromise()
+        .catch(function (err) {
+          //
+          //  If there was an internal error, put the message into the output instead
+          //
+          output.innerHTML = '';
+          output.appendChild(document.createElement('pre')).appendChild(document.createTextNode(err.message));
+        })
+        .then(function () {
+          //
+          //  Error or not, re-enable the render button
+          //
+          button.disabled = false;
+        });
+
+    }
+  </script>
+  <style>
+    #frame {
+      max-width: 40em;
+      margin: auto;
+    }
+
+    #input {
+      border: 1px solid grey;
+      margin: 0 0 .25em;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    #output {
+      margin-top: .75em;
+      padding: .25em;
+      min-height: 2em;
+    }
+
+    #output>pre {
+      margin-left: 5px;
+    }
+
+    .right {
+      float: right;
+    }
+    img {
+      max-width: 38em;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="frame">
+
+    <h1>MathJax v3: TeX &amp; MathML to HTML</h1>
+
+    <textarea id="input" rows="15" cols="10"></textarea>
+    <br />
+    <div class="right">
+      <input type="button" value="Render HTML" id="render" onclick="convert()" />
+    </div>
+    <br clear="all" />
+    <div id="output"></div>
+  </div>
+
+</body>
+
+</html>
