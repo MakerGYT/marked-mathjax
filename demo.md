@@ -47,7 +47,7 @@
 # 5 插入
 ## 5.1 链接
 ### 5.1.1 行内式
-公众号文章链接[标题](https://mp.weixin.qq.com/s/s5IhxV2ooX3JN_X416nidA)
+文章链接[标题](https://blog.makergyt.com)
 ### 5.1.2 参考式不生效
 [younghz的Markdown库1][1]
 [younghz的Markdown库2][2]
@@ -259,7 +259,7 @@ $$
 # 9 媒体
 ## 9.1  图片
 ![图5-1 这里写图片描述](https://1.s91i.faiusr.com/4/AFsIABAEGAAgztrP8QUohNjw0AYwhAc4-wI!800x800.png?v=1580461392155)
-支持 jpg、png、gif、svg 等图片格式，**其中 svg 文件仅可在微信公众平台中使用**，svg 文件示例如下：
+支持 jpg、png、gif、svg 等图片格式，svg 文件示例如下：
 ![图5-2 i_am_svg_20191024083453](https://my-wechat.mdnice.com/mdnice/i_am_svg_20191024083453.svg)
 
 # 10 特殊
